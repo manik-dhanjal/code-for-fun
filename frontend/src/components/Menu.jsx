@@ -15,6 +15,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Container = styled.div`
     flex:1;
@@ -157,6 +158,7 @@ const LoginBtn = styled.button`
     .item-name{
         margin-left:0.5em;
         margin-bottom:0.1em;
+
     }
     &:hover{
         background:#3ea6ff55;
@@ -218,12 +220,14 @@ const Menu = () => {
                 <Hr/>
                 <Login>
                     <p>Sign in to like videos, comment and subscribe</p>
-                    <LoginBtn>
-                        <AccountCircleOutlinedIcon/>
-                        <span className='item-name'>
-                            Login
-                        </span>
-                    </LoginBtn>
+                    <Link to={"/signin"} style={{textDecoration:"none"}}>
+                        <LoginBtn>
+                            <AccountCircleOutlinedIcon/>
+                            <span className='item-name'>
+                                Login
+                            </span>
+                        </LoginBtn>
+                    </Link>
                 </Login>
                 <Hr/>
                 <Title>

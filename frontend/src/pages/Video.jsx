@@ -7,6 +7,10 @@ import TurnedInNotOutlinedIcon from '@mui/icons-material/TurnedInNotOutlined';
 import TurnedInOutlinedIcon from '@mui/icons-material/TurnedInOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import logo from "../img/logo.png";
+import SideCard from '../components/SideCard';
+import Comment from '../components/Comment.jsx';
+import CommentInput from "../components/CommentInput.jsx";
 
 const Container = styled.div`
     display:flex;
@@ -22,8 +26,8 @@ const VideoWrapper = styled.div`
     
 `
 const Title = styled.h1`
-    font-size:1.2em;
-    font-weight: 400;
+    font-size:1.5em;
+    font-weight: 600;
     margin-bottom: 10px;
     margin-top:20px;
     color: ${({theme}) => theme.text};
@@ -46,7 +50,7 @@ const RateButtons = styled.div`
     align-items:center;
     border:1px solid ${({theme}) => theme.soft};
     border-radius: 45px;
-    height:40px;
+    height:2.5rem;
     .vr{
         width:1px;
         height:100%;
@@ -72,11 +76,11 @@ const Button = styled.button`
     align-items:center;
     justify-content:center;
     border:1px solid ${({theme}) => theme.soft};
-    border-radius: 45px;
-    height:40px;
+    border-radius: 10rem;
+    height:2.5rem;
     font-size: 1em;
     color: ${({theme}) => theme.text};
-    width:40px;
+    width:2.5rem;
     background:transparent;
     cursor:pointer;
     .btn-icon{
@@ -93,6 +97,79 @@ const Hr = styled.div`
     margin: 1rem 0;
     border:0.5px solid ${({theme}) => theme.soft};
 `
+const ChannelDetails = styled.div`
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+`
+const ChannelImg = styled.div`
+    overflow:hidden;
+    width:2.5rem;
+    img{
+        width:100%;
+        height: 100%;
+        object-fit:cover;
+        object-position:center;
+    }
+`
+const ChannelInfo = styled.div`
+    
+`
+const ChannelSubs = styled.p`
+    color:${({theme}) => theme.textSoft};
+    font-size:0.8em;
+    font-weight:400;
+`
+const ChannelName = styled.h3`
+    color:${({theme}) => theme.text};
+    font-size:1em;
+    font-weight:600;
+`
+const SubscribeButton = styled.button`
+    background: ${({theme}) => theme.text};
+    color: ${({theme}) => theme.bg};
+    border:none;
+    border-radius: 10rem;
+    padding: 0 1.5rem;
+    font-size: 1em;
+    height: 2.5rem;
+    font-weight:600;
+    cursor:pointer;
+    &:hover{
+        background-color: ${({theme}) => theme.textSoft}
+    }
+`
+const DescriptionContainer = styled.div`
+    padding: 0.5rem;
+    background: ${({theme}) => theme.bg};
+    border-radius: 0.5rem;
+    color: ${({theme}) => theme.text};
+    display:flex;
+    flex-direction:column;
+    margin-bottom:2rem;
+
+`
+const VideoInfo = styled.div`
+    margin-bottom:0.5rem;
+    font-weight: 600;
+`
+const Description = styled.div`
+    
+`
+const ViewMoreBtn = styled.button`
+    align-self:flex-end;
+    background:none;
+    border:none;
+    font-weight:500;
+    color: ${({theme}) => theme.text};
+    cursor:pointer;
+`
+const Comments = styled.div`
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+    margin-top:3rem;
+`
 const Video = () => {
   return (
     <Container>
@@ -102,7 +179,18 @@ const Video = () => {
             </VideoWrapper>
             <Title>Test Video</Title>
             <Details>
-                
+                <ChannelDetails>
+                    <ChannelImg>
+                        <img src={logo} alt="channel name"/>
+                    </ChannelImg>
+                    <ChannelInfo>
+                        <ChannelName>Code for fun</ChannelName>
+                        <ChannelSubs>183k subscribers</ChannelSubs>
+                    </ChannelInfo>
+                    <SubscribeButton>
+                        Subscribe
+                    </SubscribeButton>
+                </ChannelDetails>
                 <ButtonGroup>
                     <RateButtons>
                         <RateButton>
@@ -123,9 +211,34 @@ const Video = () => {
                 </ButtonGroup>
             </Details>
             <Hr/>
+            <DescriptionContainer>
+                <VideoInfo>
+                    62,042 views  Jun 30, 2022
+                </VideoInfo>
+                <Description>
+                    React.js Real-World Projects
+                    Video uploading app design using React and Styled Components. Youtube clone design with hooks and functional component. React video player.
+                </Description>
+                <ViewMoreBtn>
+                    View More
+                </ViewMoreBtn>
+            </DescriptionContainer>
+            <CommentInput/>
+            <Comments>
+                <Comment/>
+                <Comment/>
+                <Comment/>
+                <Comment/>
+                <Comment/>
+            </Comments>
         </Content>
         <Recommendation>
-
+            <SideCard/>
+            <SideCard/>
+            <SideCard/>
+            <SideCard/>
+            <SideCard/>
+            <SideCard/>
         </Recommendation>
     </Container>
   )

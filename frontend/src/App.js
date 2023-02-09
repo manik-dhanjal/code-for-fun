@@ -6,6 +6,7 @@ import { darkTheme, lightTheme } from "./utils/theme.utils.js";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Video from "./pages/Video.jsx";
+import Signin from "./pages/Signin.jsx";
 
 const Container = styled.div`
   display:flex;
@@ -15,7 +16,7 @@ const Main = styled.div`
   background: ${({theme}) => theme.bgLighter};
 `
 const Wrapper = styled.div`
-padding: 22px 96px;
+padding: 1.5rem 2rem;
 `
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -34,6 +35,7 @@ function App() {
                     <Route path="video">
                       <Route path=":id" element={<Video/>}/>
                     </Route>
+                    <Route path="signin" element={<Signin/>}/>
                   </Route>
                 </Routes>
               </Wrapper>

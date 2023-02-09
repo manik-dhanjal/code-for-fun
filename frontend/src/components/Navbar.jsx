@@ -10,6 +10,7 @@ const Styles = styled.div`
   top: 0;
   background-color: ${({theme}) => theme.bg};
   height: 56px;
+  z-index:1000;
 `
 const Wrapper = styled.div`
   display:flex;
