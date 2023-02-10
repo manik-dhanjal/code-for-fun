@@ -15,7 +15,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { Link } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
     flex:1;
@@ -73,6 +73,7 @@ const Item = styled.div`
     padding: 0.5rem;
     border-radius:0.5rem;
     margin: 0.2rem 0;
+    color:${({theme}) => theme.text};
     &:hover{
         background-color:#ffffff11;
     }
@@ -170,6 +171,7 @@ const Hr = styled.div`
     height: 0.5px;
 `
 const Menu = () => {
+  const {currentUser} = useSelector(state => state.user);
   return (
     <Container>
         <Link to="/" style={{textDecoration: "none"}}>
@@ -184,18 +186,24 @@ const Menu = () => {
         </Link>
         <Scroll>
             <Wrapper>
-                <Item>
-                    <HomeIcon/>
-                    Home
-                </Item>
-                <Item>
-                    <ExploreOutlinedIcon/>
-                    Explore
-                </Item>
-                <Item>
-                    <SubscriptionsOutlinedIcon/>
-                    Subscriptions
-                </Item>
+                <Link to="/" style={{textDecoration:"none"}}>
+                    <Item>
+                        <HomeIcon/>
+                        Home
+                    </Item>
+                </Link>
+                <Link to="/trend" style={{textDecoration:"none"}}>
+                    <Item>
+                        <ExploreOutlinedIcon/>
+                        Explore
+                    </Item>
+                </Link>
+                <Link to="/subscriptions" style={{textDecoration:"none"}}>
+                    <Item>
+                        <SubscriptionsOutlinedIcon/>
+                        Subscriptions
+                    </Item>
+                </Link>
                 <Hr/>
                 <Item>
                     <VideoLibraryOutlinedIcon/>
@@ -218,18 +226,23 @@ const Menu = () => {
                     <span className='item-name'>Liked Tutorials</span>
                 </Item>
                 <Hr/>
-                <Login>
-                    <p>Sign in to like videos, comment and subscribe</p>
-                    <Link to={"/signin"} style={{textDecoration:"none"}}>
-                        <LoginBtn>
-                            <AccountCircleOutlinedIcon/>
-                            <span className='item-name'>
-                                Login
-                            </span>
-                        </LoginBtn>
-                    </Link>
-                </Login>
-                <Hr/>
+                {
+                    !currentUser &&
+                    <>
+                        <Login>
+                            <p>Sign in to like videos, comment and subscribe</p>
+                            <Link to={"/signin"} style={{textDecoration:"none"}}>
+                                <LoginBtn>
+                                    <AccountCircleOutlinedIcon/>
+                                    <span className='item-name'>
+                                        Login
+                                    </span>
+                                </LoginBtn>
+                            </Link>
+                        </Login>
+                        <Hr/>
+                    </>
+                }
                 <Title>
                     Subscriptions
                 </Title>

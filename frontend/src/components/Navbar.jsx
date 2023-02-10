@@ -4,6 +4,9 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 
 const Styles = styled.div`
   position: sticky;
@@ -75,20 +78,42 @@ const LoginBtn = styled.button`
       background:#3ea6ff55;
   }
 `
-const ThemeBtn = styled.button`
+const IconBtn = styled.button`
   background:transparent;
   border:1px solid ${({theme}) => theme.soft};
   border-radius: 2rem;
-  margin-right:1rem;
+  margin-right:0.8rem;
   cursor:pointer;
   width:2.2rem;
   height: 2.2rem;
   display:flex;
   justify-content:center;
   align-items:center;
-  color: ${({theme}) => theme.text}
+  color: ${({theme}) => theme.text};
+`
+
+const User = styled.div`
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  font-weight: 500;
+  color: ${({theme}) => theme.text};
+`
+const Avatar = styled.div`
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background-color: #999;
+  overflow:hidden;
+  img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+  }
 `
 const Navbar = ({darkMode, setDarkMode}) => {
+  const {currentUser} = useSelector(state => state.user);
   return (
     <Styles>
       <Wrapper>
@@ -98,19 +123,37 @@ const Navbar = ({darkMode, setDarkMode}) => {
             <SearchOutlinedIcon/>
           </button>
         </Search>
-        <ThemeBtn onClick={() => setDarkMode(!darkMode)}>
+        <IconBtn onClick={() => setDarkMode(!darkMode)}>
           {
             darkMode?
               <LightModeOutlinedIcon/>:
               <DarkModeOutlinedIcon/>
           }
-        </ThemeBtn>
-        <LoginBtn>
-          <AccountCircleOutlinedIcon/>
-          <span className='item-name'>
-            Signin
-          </span>          
-        </LoginBtn>
+        </IconBtn>
+        {
+          currentUser?
+          <>
+            <IconBtn>
+              <VideoCallOutlinedIcon/>
+            </IconBtn>
+            <User>
+              <Avatar>
+                <img src={currentUser.img}/>
+              </Avatar>
+              <span id="username">
+                {currentUser.name}
+              </span>
+            </User>
+          </>:
+          <Link to="/signin" style={{textDecoration:"none"}}>
+            <LoginBtn>
+              <AccountCircleOutlinedIcon/>
+              <span className='item-name'>
+                Signin
+              </span>          
+            </LoginBtn>
+          </Link>
+        }
       </Wrapper>
     </Styles>
   )

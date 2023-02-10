@@ -19,7 +19,7 @@ router.get("/trend", trend);
 
 router.get("/random", random);
 
-router.get("/sub",subVideo);
+router.get("/sub",verifyToken,subVideo);
 
 router.get("/tags", getVideosFromTags)
 

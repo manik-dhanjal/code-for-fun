@@ -1,5 +1,8 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from "styled-components";
+import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { loginFailure, loginStart, loginSuccess } from '../redux/user-slice.redux';
 
 const Container = styled.div`
     display: flex;
@@ -57,6 +60,43 @@ const ALink = styled.div`
     margin-left: 1.5rem;
 `
 const Signin = () => {
+    const [signinInput, setSigninInput] = useState({
+        name:"",
+        password:"",
+    });
+    const [signupInput, setSignupInput] = useState({
+        name:"",
+        password:"",
+        email:""
+    });
+    const dispatch = useDispatch();
+
+    const handleSigninInput = (e) => {
+        setSigninInput({
+            ...signinInput,
+            [e.target.name]:e.target.value,
+        })
+    }
+    const handleSignupInput = (e) => {
+        setSignupInput({
+            ...signinInput,
+            [e.target.name]:e.target.value
+        })
+    }
+    const handleSignin = async (e) => {
+        e.preventDefault();
+        try{
+            dispatch(loginStart());
+            const res = await axios.post("/auth/signin",{...signinInput})
+            dispatch(loginSuccess(res.data))
+        }catch(e){
+            dispatch(loginFailure())
+            console.log(e)
+        }
+    }
+    const handleSignup = (e) => {
+        e.preventDefault();
+    }
   return (
     <Container>
         <Wrapper>
@@ -66,16 +106,16 @@ const Signin = () => {
             <SubTitle>
                 to continue to Code for fun
             </SubTitle>
-            <Input placeholder="username"/>
-            <Input placeholder='password' type="password"/>
-            <Button>Sign in</Button>
+            <Input placeholder="username" name="name" value={signinInput.name} onInput={handleSigninInput}/>
+            <Input placeholder='password' type="password" name="password" value={signinInput.password} onChange={handleSigninInput}/>
+            <Button onClick={handleSignin}>Sign in</Button>
 
             <Title>or</Title>
 
-            <Input placeholder="username"/>
-            <Input placeholder='E mail' type="email"/>
-            <Input placeholder='password' type="password"/>
-            <Button>Sign up</Button>
+            <Input placeholder="username" name="name" value={signupInput.name} onChange={handleSignupInput}/>
+            <Input placeholder='E mail' type="email" name="email" value={signupInput.email} onChange={handleSignupInput}/>
+            <Input placeholder='password' type="password" name="password" value={signupInput.password} onChange={handleSignupInput}/>
+            <Button onClick={handleSignup}>Sign up</Button>
         </Wrapper>
         <More>
             English(India)

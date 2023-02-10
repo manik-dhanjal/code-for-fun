@@ -86,7 +86,7 @@ export const random = async(req, res, next) =>{
         const videos = await Video.aggregate([{
             $sample: {size: 40}
         }])
-        res.status.send(videos)
+        res.status(200).send(videos)
     }catch(err){
         next(err);
     }
